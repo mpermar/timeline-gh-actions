@@ -18,7 +18,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Webhook
-        uses: distributhor/workflow-webhook
-        with:
-          url: "https://trytimeline.herokuapp.com/timelines/20564cf7-a856-46f9-ad9c-0095d307be48"
-          json: '{"type": "custom", "tags":"My Service on Actions", "payload": { "action": "deployment", "repository": "${{github.event.repository.full_name}}", "number": "${{github.event.number}}", "created_at": "${{github.event.pull_request.created_at}}", "updated_at": "${{github.event.pull_request.updated_at}}"  }}'
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          data: '{"type": "custom", "tags":"My Service on Actions", "payload": { "action": "deployment", "repository": "${{github.event.repository.full_name}}", "number": "${{github.event.number}}", "created_at": "${{github.event.pull_request.created_at}}", "updated_at": "${{github.event.pull_request.updated_at}}"  }}'
